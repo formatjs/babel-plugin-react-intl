@@ -16,7 +16,6 @@ const COMPONENT_NAMES = [
 ];
 
 const FUNCTION_NAMES = [
-    'defineMessage',
     'defineMessages',
 ];
 
@@ -313,13 +312,9 @@ export default function ({Plugin, types: t}) {
                 if (referencesImport(callee, moduleSourceName, FUNCTION_NAMES)) {
                     let firstArg = this.get('arguments')[0];
 
-                    if (callee.node.name === 'defineMessages') {
-                        firstArg.get('properties')
-                            .map((prop) => prop.get('value'))
-                            .forEach(processMessageObject);
-                    } else {
-                        processMessageObject(firstArg);
-                    }
+                    firstArg.get('properties')
+                        .map((prop) => prop.get('value'))
+                        .forEach(processMessageObject);
                 }
             },
         },
