@@ -9,6 +9,7 @@ import * as p from 'path';
 import {writeFileSync} from 'fs';
 import {sync as mkdirpSync} from 'mkdirp';
 import printICUMessage from './print-icu-message';
+import * as natural from 'natural';
 
 const COMPONENT_NAMES = [
     'FormattedMessage',
@@ -105,7 +106,21 @@ export default function ({Plugin, types: t}) {
         shasum.update(defaultMessage);
 
         if (description) {
-            shasum.update(description);
+            const {defaultLang = 'en'} = getReactIntlOptions(file.opts);
+
+            let normalizedDescription = description.toLowerCase();
+
+            let stemmer = defaultLang === 'en' ? 'PorterStemmer' :
+                `PorterStemmer${defaultLang[0].toUpperCase()}${defaultLang[1]}`;
+
+            if (stemmer) {
+                normalizedDescription = natural[stemmer]
+                    .tokenizeAndStem(normalizedDescription)
+                    .sort()
+                    .join();
+            }
+
+            shasum.update(normalizedDescription);
         }
 
         return shasum.digest('hex');

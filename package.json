@@ -17,7 +17,8 @@
   "devDependencies": {
     "babel": "^5.8.21",
     "babel-eslint": "^4.1.2",
-    "eslint": "^1.4.3"
+    "eslint": "^1.4.3",
+    "natural": "^0.2.1"
   },
   "scripts": {
     "lint": "eslint src/",
