@@ -1,4 +1,4 @@
-# This repo was migrated to the [monorepo](https://github.com/formatjs/formatjs/tree/master/packages/intl-locales-supported)
+# This repo was migrated to the [monorepo](https://github.com/formatjs/formatjs/tree/master/packages/babel-plugin-react-intl)
 
 # babel-plugin-react-intl
 
